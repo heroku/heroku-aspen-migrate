@@ -28,4 +28,8 @@ This will cause an app named `myapp-cedar` to be created, and the following oper
 
 Verify the new app at https://myapp-cedar.herokuapp.com
 
+If you need to make any changes, clone the new app:
+
+    $ git clone myapp-cedar -o heroku
+
 If everything looks good, remove all domains from the Aspen app and add them to the Cedar app. You may also want to rename `myapp` to `myapp-aspen` and `myapp-cedar` to `myapp` if you are taking advantage of the `*.heroku.com` or `*.herokuapp.com` domains.
