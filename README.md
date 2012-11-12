@@ -1,6 +1,6 @@
 # heroku-aspen-migrate
 
-Attempt (mostly) automatic upgrade of an app from Aspen to Cedar. This script will attempt to create a new app named `myapp-*cedar*` that mimics the original as closely as possible.
+Attempt (mostly) automatic upgrade of an app from Aspen to Cedar. This script will attempt to create a new app named `myapp-cedar` that mimics the original as closely as possible.
 
 ## Installation
 
