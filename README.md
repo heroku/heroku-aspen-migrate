@@ -4,7 +4,7 @@ Attempt (mostly) automatic upgrade of an app from Aspen to Cedar. This script wi
 
 ## Installation
 
-    $ heroku plugins:install https://github.com/ddollar/heroku-aspen-migrate
+    $ heroku plugins:install https://github.com/heroku/heroku-aspen-migrate
 
 ## Usage
 
