@@ -27,7 +27,9 @@ class Heroku::Command::Aspen < Heroku::Command::Base
         action("Discovering database addon") do
           cfg = api.get_config_vars(original_app).body
           att_name = cfg.keys.detect do |key|
-            key != "DATABASE_URL" && cfg[key] == cfg["DATABASE_URL"]
+            next(false) if key == "DATABASE_URL"
+            next(false) if key == "SHARED_DATABASE_URL"
+            cfg[key] == cfg["DATABASE_URL"]
           end.gsub(/_URL$/, "")
           error "Unable to determine which database is in use" unless att_name =~ /^HEROKU_POSTGRESQL/
           addon = api.get_addons(original_app).body.detect { |addon| addon["attachment_name"] == att_name }
