@@ -30,13 +30,17 @@ class Heroku::Command::Aspen < Heroku::Command::Base
             next(false) if key == "DATABASE_URL"
             next(false) if key == "SHARED_DATABASE_URL"
             cfg[key] == cfg["DATABASE_URL"]
-          end.gsub(/_URL$/, "")
-          error "Unable to determine which database is in use" unless att_name =~ /^HEROKU_POSTGRESQL/
-          addon = api.get_addons(original_app).body.detect { |addon| addon["attachment_name"] == att_name }
-          new_db = api.post_addon(new_app, addon["name"]).body["message"].match(/Attached as (.*)\n/)[1]
-          status addon["name"]
-          needs_db_migration = att_name
-          api.put_config_vars new_app, "DATABASE_URL" => api.get_config_vars(new_app).body[new_db]
+          end.to_s.gsub(/_URL$/, "")
+          if att_name != ""
+            error "Unable to determine which database is in use" unless att_name =~ /^HEROKU_POSTGRESQL/
+            addon = api.get_addons(original_app).body.detect { |addon| addon["attachment_name"] == att_name }
+            new_db = api.post_addon(new_app, addon["name"]).body["message"].match(/Attached as (.*)\n/)[1]
+            status addon["name"]
+            needs_db_migration = att_name
+            api.put_config_vars new_app, "DATABASE_URL" => api.get_config_vars(new_app).body[new_db]
+          else
+            status "No database detected"
+          end
         end
         action("Verifying pgbackups installation") do
           pgb = api.get_addons(original_app).body.detect { |addon| addon["name"] =~ /^pgbackups:/ }
