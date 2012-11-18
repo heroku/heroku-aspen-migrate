@@ -116,7 +116,8 @@ class Heroku::Command::Aspen < Heroku::Command::Base
           end
           system %{ bundle install }
           error "Bundler Error" unless $?.exitstatus.zero?
-          %x{ git add Gemfile Gemfile.lock; git commit -m "add Gemfile" }
+          %x{ git add Gemfile Gemfile.lock }
+          %x{ git commit -m "add Gemfile" }
         end
         action("Pushing to Cedar app") do
           %x{ git remote add cedar git@heroku.com:#{new_app}.git 2>&1 }
