@@ -12,6 +12,8 @@ class Heroku::Command::Aspen < Heroku::Command::Base
   # migrate an aspen app
   #
   def migrate
+    error "Run this migration from Ruby 1.8.7" unless %x{bundle exec ruby -v} =~ /1.8.7/
+
     original_app = app
 
     new_app = "#{original_app}-cedar"
