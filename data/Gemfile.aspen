@@ -1,4 +1,5 @@
 source :rubygems
+source 'http://gems.github.com'
 
 # ruby
 ruby "1.8.7"
